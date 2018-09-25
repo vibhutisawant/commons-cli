@@ -28,10 +28,22 @@ before_install:
   - export M2_HOME=$PWD/target/apache-maven-3.2.5
   - export PATH=$M2_HOME/bin:$PATH
 
-jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk8
+matrix:
+   include:
+   - jdk: openjdk6
+     env: JDK_RELEASE='OpenJDK 6' ARCH=x86
+   - jdk: openjdk7
+     env: JDK_RELEASE='OpenJDK 7' ARCH=x86
+   - jdk: oraclejdk8
+     env: JDK_RELEASE='OracleJDK 8' ARCH=x86
+   - jdk: openjdk8
+     os: linux-ppc64le
+     env: JDK_RELEASE='OpenJDK 8' ARCH=ppc64le
+
+#jdk:
+#  - openjdk6
+#  - openjdk7
+#  - oraclejdk8
 
 script:
   - mvn
